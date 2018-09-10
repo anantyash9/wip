@@ -24,16 +24,17 @@ from flask_restful import Resource, Api
 app = Flask(__name__)
 api = Api(app)
 
-class HelloWorld(Resource):
-    def get(self):
-        start_new_thread(main.main,('Catching_tuna_Maldivian_style.mp4','00:01:25.00','00:01:58.00'))
+class ActivityProcess(Resource):
+    def get(self,video,start,end):
+        start_new_thread(main.main,(video,start,end))
         
+        
+class ActivityProgress(Resource):
+    def get(self):
+        return (main.FishingDetection.progress)
     
-@app.route('/progress')
-def return_progress():
-    return str(main.FishingDetection.progress)
-    
-api.add_resource(HelloWorld, '/')
+api.add_resource(ActivityProcess, '/activity/process/<video>,<start>,<end>',methods=['GET','POST'])
+api.add_resource(ActivityProgress, '/activity/progress/',methods=['GET','POST'])
 
 if __name__ == '__main__':
     app.run(debug=True)

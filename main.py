@@ -493,7 +493,7 @@ class FishingDetection:
 
     def pipeline(self, img):
         FishingDetection.frame +=1
-        FishingDetection.progress = (FishingDetection.frame/FishingDetection.max_frame)*100 
+        FishingDetection.progress = int((FishingDetection.frame/FishingDetection.max_frame)*100) 
         image = Image.fromarray(img)
         image_np = self.load_image_into_numpy_array(image)
         # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
